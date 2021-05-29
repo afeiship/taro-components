@@ -1,2 +1,2 @@
 # taro-components
-> Taro components..
+> Taro components.

@@ -1,2 +1,0 @@
-# taro-picker
-> Taro picker.

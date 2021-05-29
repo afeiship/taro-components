@@ -1,26 +1,44 @@
-import { Component } from 'react'
-import { View, Text } from '@tarojs/components'
-import './index.scss'
-import TaroPicker from '@jswork/taro-picker';
+import { Component } from "react";
+import { View, Text } from "@tarojs/components";
+import "./index.scss";
+import TaroSelect from "@jswork/taro-select";
 
 export default class Index extends Component {
+  state = {
+    items: [
+      { name: "fei", value: "f" },
+      { name: "zheng", value: "z" },
+      { name: "afeiship", value: "a" },
+    ],
+  };
 
-  componentWillMount () { }
+  componentWillMount() {}
 
-  componentDidMount () { }
+  componentDidMount() {}
 
-  componentWillUnmount () { }
+  componentWillUnmount() {}
 
-  componentDidShow () { }
+  componentDidShow() {}
 
-  componentDidHide () { }
+  componentDidHide() {}
 
-  render () {
+  handleChange = (e) => {
+    const { value } = e.target;
+    console.log("e.", value);
+  };
+
+  render() {
+    const { items } = this.state;
     return (
-      <View className='index'>
+      <View className="index">
         <Text>Hello world!</Text>
-        <TaroPicker />
+        <TaroSelect
+          labelKey="name"
+          valueKey="value"
+          onChange={this.handleChange}
+          items={items}
+        />
       </View>
-    )
+    );
   }
 }
