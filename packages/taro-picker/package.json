@@ -2,7 +2,8 @@
   "name": "@jswork/taro-picker",
   "version": "1.0.0",
   "description": "Taro picker.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },

@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
+import TaroPicker from '@jswork/taro-picker';
 
 export default class Index extends Component {
 
@@ -18,6 +19,7 @@ export default class Index extends Component {
     return (
       <View className='index'>
         <Text>Hello world!</Text>
+        <TaroPicker />
       </View>
     )
   }
