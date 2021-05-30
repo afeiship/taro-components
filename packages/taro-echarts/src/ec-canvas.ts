@@ -1,12 +1,10 @@
 export default class {
   private ctx;
-  private canvasId;
   private chart;
   private event;
 
-  constructor(ctx, canvasId) {
+  constructor(ctx) {
     this.ctx = ctx;
-    this.canvasId = canvasId;
     this.chart = null;
 
     // this._initCanvas(zrender, ctx);

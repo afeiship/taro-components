@@ -31,8 +31,10 @@ export default class Index extends Component {
   };
 
   render() {
+    console.log(this.state.items);
     return (
       <View className="index">
+        <View>Hello wrold</View>
         <TaroEcharts canvasId="myCanvas" />
       </View>
     );

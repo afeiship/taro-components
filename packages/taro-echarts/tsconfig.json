@@ -11,6 +11,7 @@
     ],
     "jsx": "react",
     "declaration": true,
+    "allowJs": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
