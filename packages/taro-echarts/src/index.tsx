@@ -20,7 +20,7 @@ function wrapTouch(event) {
 export default class extends Component<any, any> {
   private chart;
   private $instance = getCurrentInstance();
-  static defaultProps = {
+  public static defaultProps = {
     width: 375,
     height: 200,
     onInit: noop
@@ -39,7 +39,7 @@ export default class extends Component<any, any> {
     });
   }
 
-  private onCanvasReady = (inRes) => {
+  public onCanvasReady = (inRes) => {
     const { echarts, onInit, canvasId } = this.props;
     const ctx = Taro.createCanvasContext(canvasId, this);
     const canvas = new EcCanvas(ctx);
@@ -49,7 +49,7 @@ export default class extends Component<any, any> {
     onInit({ target: { value: this.chart } });
   };
 
-  handleStart = (e) => {
+  public handleStart = (e) => {
     if (this.chart && e.touches.length > 0) {
       const touch = e.touches[0];
       const handler = this.chart.getZr().handler;
@@ -60,7 +60,7 @@ export default class extends Component<any, any> {
     }
   };
 
-  handleMove = (e) => {
+  public handleMove = (e) => {
     if (this.chart && e.touches.length > 0) {
       const touch = e.touches[0];
       const handler = this.chart.getZr().handler;
@@ -81,7 +81,7 @@ export default class extends Component<any, any> {
     }
   };
 
-  public render() {
+  public render(): JSX.Element {
     const { width, height, onInit, canvasId, ...props } = this.props;
     return (
       <View style={{ width, height }}>
