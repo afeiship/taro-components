@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Canvas } from '@tarojs/components';
 import noop from '@jswork/noop';
 import Taro, { eventCenter, getCurrentInstance } from '@tarojs/taro';
-import * as echarts from '@jswork/echarts-tinny/lib/echarts.min';
 import EcCanvas from './ec-canvas';
 /**
  * @reference: https://developers.weixin.qq.com/miniprogram/dev/component/canvas.html#Canvas-2D-%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81
@@ -40,7 +39,7 @@ export default class extends Component<any, any> {
   }
 
   private onCanvasReady = (inRes) => {
-    const { onInit, canvasId } = this.props;
+    const { echarts, onInit, canvasId } = this.props;
     const ctx = Taro.createCanvasContext(canvasId, this);
     const canvas = new EcCanvas(ctx);
     echarts.setCanvasCreator(() => canvas);
