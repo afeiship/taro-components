@@ -66,12 +66,11 @@ export default class {
           ) {
             ctx['set' + style.charAt(0).toUpperCase() + style.slice(1)](value);
           }
-        },
-        get: (value) => value
+        }
       });
     });
 
-    ctx.createRadialGradient = () => {
+    ctx.createRadialGradient = function () {
       return ctx.createCircularGradient(arguments);
     };
   }

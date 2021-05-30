@@ -3,6 +3,7 @@ import { View, Canvas } from '@tarojs/components';
 import noop from '@jswork/noop';
 import Taro, { eventCenter, getCurrentInstance } from '@tarojs/taro';
 import EcCanvas from './ec-canvas';
+
 /**
  * @reference: https://developers.weixin.qq.com/miniprogram/dev/component/canvas.html#Canvas-2D-%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81
  */
