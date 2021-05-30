@@ -1,11 +1,13 @@
 import { Component } from "react";
-import { View, Text } from "@tarojs/components";
+import { View, Canvas, Text } from "@tarojs/components";
 import "./index.scss";
+import Taro from "@tarojs/taro";
 import TaroSelect from "@jswork/taro-select";
-import TaroEcharts from '@jswork/taro-echarts';
+import TaroEcharts from "@jswork/taro-echarts";
 
 export default class Index extends Component {
   state = {
+    ready: false,
     items: [
       { name: "fei", value: "f" },
       { name: "zheng", value: "z" },
@@ -29,18 +31,9 @@ export default class Index extends Component {
   };
 
   render() {
-    const { items } = this.state;
-    console.log('items;', items);
-
     return (
       <View className="index">
-        <Text>Hello world!</Text>
-        {/* <TaroSelect
-          labelKey="name"
-          valueKey="value"
-          onChange={this.handleChange}
-          items={items}
-        /> */}
+        <TaroEcharts canvasId="myCanvas" />
       </View>
     );
   }

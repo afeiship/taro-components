@@ -11,6 +11,7 @@
   "author": "afeiship",
   "license": "MIT",
   "devDependencies": {
+    "@types/echarts": "^4.9.7",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
     "prettier": "^2.3.0",
@@ -23,7 +24,8 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@jswork/noop": "^1.0.0"
+    "@jswork/noop": "^1.0.0",
+    "echarts": "^5.1.1"
   },
   "publishConfig": {
     "access": "public",
