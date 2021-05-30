@@ -2,6 +2,7 @@ import { Component } from "react";
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
 import TaroSelect from "@jswork/taro-select";
+import TaroEcharts from '@jswork/taro-echarts';
 
 export default class Index extends Component {
   state = {
@@ -29,15 +30,17 @@ export default class Index extends Component {
 
   render() {
     const { items } = this.state;
+    console.log('items;', items);
+
     return (
       <View className="index">
         <Text>Hello world!</Text>
-        <TaroSelect
+        {/* <TaroSelect
           labelKey="name"
           valueKey="value"
           onChange={this.handleChange}
           items={items}
-        />
+        /> */}
       </View>
     );
   }
