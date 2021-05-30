@@ -25,8 +25,28 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  handleChange = (e) => {
+  handleInit = (e) => {
     const { value } = e.target;
+    value.setOption({
+      title: {
+        text: "ECharts 入门示例",
+      },
+      tooltip: {},
+      legend: {
+        data: ["销量"],
+      },
+      xAxis: {
+        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+      },
+      yAxis: {},
+      series: [
+        {
+          name: "销量",
+          type: "bar",
+          data: [5, 20, 36, 10, 10, 20],
+        },
+      ],
+    });
     console.log("e.", value);
   };
 
@@ -35,7 +55,11 @@ export default class Index extends Component {
     return (
       <View className="index">
         <View>Hello wrold</View>
-        <TaroEcharts canvasId="myCanvas" />
+        <TaroEcharts
+          height={300}
+          onInit={this.handleInit}
+          canvasId="myCanvas"
+        />
       </View>
     );
   }
