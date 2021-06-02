@@ -5,6 +5,11 @@ import Taro from "@tarojs/taro";
 import TaroSelect from "@jswork/taro-select";
 import TaroEcharts from "@jswork/taro-echarts";
 import * as echarts from "@jswork/echarts-tiny/lib/echarts.min";
+import { css } from "@linaria/core";
+import { styled } from "linaria/react";
+import StyledBox from "@jswork/styled-box";
+
+Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
 export default class Index extends Component {
   state = {
@@ -112,17 +117,27 @@ export default class Index extends Component {
   };
 
   render() {
-    console.log(this.state.items);
+    const header = css`
+      font-size: 24px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+    `;
+
+    console.log(header)
+
     return (
       <View className="index">
-        <View>Hello wrold</View>
-        <TaroEcharts
+        <View className={header}>Hello wrold</View>
+        {/* <StyledBox p={10} debug auto wp={8}>
+          StyleBox comming.
+        </StyledBox> */}
+        {/* <TaroEcharts
           echarts={echarts}
-          width={'100%'}
+          width={"100%"}
           height={300}
           onInit={this.handleInit}
           canvasId="myCanvas"
-        />
+        /> */}
       </View>
     );
   }
