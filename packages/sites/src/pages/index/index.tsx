@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { View, Canvas, Text } from "@tarojs/components";
 import "./index.scss";
-import Taro from "@tarojs/taro";
+import Taro, { login } from "@tarojs/taro";
 import TaroSelect from "@jswork/taro-select";
 import TaroEcharts from "@jswork/taro-echarts";
 import * as echarts from "@jswork/echarts-tiny/lib/echarts.min";
@@ -15,9 +15,9 @@ export default class Index extends Component {
   state = {
     ready: false,
     items: [
-      { name: "fei", value: "f" },
-      { name: "zheng", value: "z" },
-      { name: "afeiship", value: "a" },
+      { name: "fei", id: 1 },
+      { name: "zheng", id: 2 },
+      { name: "afeiship", id: 3 },
     ],
   };
 
@@ -113,21 +113,20 @@ export default class Index extends Component {
         },
       ],
     });
-    console.log("e.", value);
   };
 
   render() {
-    const header = css`
-      font-size: 24px;
-      font-weight: bold;
-      border: 1px solid #ccc;
-    `;
+    // const header = css`
+    //   font-size: 24px;
+    //   font-weight: bold;
+    //   border: 1px solid #ccc;
+    // `;
 
-    console.log(header)
+    // console.log(header);
 
     return (
       <View className="index">
-        <View className={header}>Hello wrold</View>
+        <View>Hello wrold</View>
         {/* <StyledBox p={10} debug auto wp={8}>
           StyleBox comming.
         </StyledBox> */}
@@ -138,6 +137,15 @@ export default class Index extends Component {
           onInit={this.handleInit}
           canvasId="myCanvas"
         /> */}
+        <TaroSelect
+          labelKey="name"
+          valueKey="id"
+          value={2}
+          items={this.state.items}
+          onChange={(e) => {
+            console.log("e:", e.target.value);
+          }}
+        />
       </View>
     );
   }

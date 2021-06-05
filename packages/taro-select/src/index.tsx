@@ -40,7 +40,7 @@ export default class extends Component<Props, State> {
   get item(): any {
     const { items } = this.props;
     const { index } = this.state;
-    return items[index || -1];
+    return items[index as number];
   }
 
   get children(): JSX.Element {
@@ -56,15 +56,15 @@ export default class extends Component<Props, State> {
 
   constructor(inProps: Props) {
     super(inProps);
-    this.state = {
-      index: inProps.value
-    };
+    const { value, valueKey } = inProps;
+    const index = inProps.items.findIndex((item) => item[valueKey] === value);
+    this.state = { index };
   }
 
   private handleChange = (inEvent: any) => {
     const { onChange, valueKey } = this.props;
     const { value } = inEvent.detail;
-    this.setState({ index: value }, () => {
+    this.setState({ index: parseInt(value) }, () => {
       onChange({ target: { value: this.item[valueKey] } });
     });
   };
