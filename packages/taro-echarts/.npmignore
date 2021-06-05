@@ -1,0 +1,6 @@
+src
+.prettierignore
+.prettierrc
+LICENSE.txt
+package.json
+tsconfig.json

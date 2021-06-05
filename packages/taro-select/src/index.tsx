@@ -43,7 +43,7 @@ export default class extends Component<Props, State> {
     return items[index as number];
   }
 
-  get children(): JSX.Element {
+  get children() {
     const { placeholder, current, labelKey } = this.props;
     const { index } = this.state;
     if (index === -1) return <View className="is-placeholder">{placeholder}</View>;
