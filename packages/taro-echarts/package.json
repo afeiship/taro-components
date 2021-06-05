@@ -1,6 +1,6 @@
 {
   "name": "@jswork/taro-echarts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Taro echarts.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
