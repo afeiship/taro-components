@@ -12,7 +12,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "start": "cd ./packages/sites && yarn start",
+    "start": "cd ./packages/websites && yarn start",
     "build": "lerna run build",
     "publish": "npm run build && lerna publish --no-private"
   }

@@ -8,6 +8,7 @@ import * as echarts from "@jswork/echarts-tiny/lib/echarts.min";
 import { css } from "@linaria/core";
 import { styled } from "linaria/react";
 import StyledBox from "@jswork/styled-box";
+import { AtButton, AtFab, AtIcon, AtAvatar } from "taro-ui";
 
 Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
@@ -126,7 +127,7 @@ export default class Index extends Component {
 
     return (
       <View className="index">
-        <View>Hello wrold</View>
+        <view data-key="hello" data-value="world">1Hello wrold2</view>
         {/* <StyledBox p={10} debug auto wp={8}>
           StyleBox comming.
         </StyledBox> */}
@@ -137,6 +138,19 @@ export default class Index extends Component {
           onInit={this.handleInit}
           canvasId="myCanvas"
         /> */}
+        <AtButton type="primary" size="normal">
+          按钮文案
+        </AtButton>
+
+        <AtButton type="secondary" size="normal">
+          按钮文案
+        </AtButton>
+        <AtIcon value="clock" size="30" color="#F00"></AtIcon>
+
+        <AtFab>
+          <Text className="at-fab__icon at-icon at-icon-menu"></Text>
+        </AtFab>
+
         <TaroSelect
           labelKey="name"
           valueKey="id"
@@ -146,6 +160,11 @@ export default class Index extends Component {
             console.log("e:", e.target.value);
           }}
         />
+
+        <AtAvatar image="https://jdc.jd.com/img/200"></AtAvatar>
+        <AtAvatar text="凹凸实验室"></AtAvatar>
+        <AtAvatar circle image="https://jdc.jd.com/img/200"></AtAvatar>
+        <AtAvatar circle text="凹凸实验室"></AtAvatar>
       </View>
     );
   }

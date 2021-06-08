@@ -1,0 +1,14 @@
+@import "./custom-theme.scss";
+@import '~taro-ui/dist/style/index.scss';
+
+// https://github.com/NervJS/taro-ui/issues/1281
+// https://github.com/NervJS/taro-ui/issues/1281
+
+
+view[data-key="hello"]{
+  border:1px solid red;
+}
+
+View[data-value]{
+  border:1px solid blue;
+}
