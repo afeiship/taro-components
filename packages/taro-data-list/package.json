@@ -1,6 +1,6 @@
 {
   "name": "@jswork/taro-data-list",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Taro data list.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
