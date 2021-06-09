@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { View, Image, Text } from "@tarojs/components";
+import { View, Image, Text, Checkbox } from "@tarojs/components";
 import "./index.scss";
 import Taro from "@tarojs/taro";
 import TaroSelect from "@jswork/taro-select";
@@ -19,9 +19,23 @@ Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
 const StyledList = styled(View)`
   scroll-view {
+    padding: 20px;
     border: 1px solid red;
     box-sizing: border-box;
     height: 600px;
+  }
+  .template-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  .template-init,
+  .template-no-more {
+    text-align: center;
+    padding: 20px;
+    color: #999;
   }
 `;
 
@@ -134,7 +148,7 @@ export default class Index extends Component {
     return new Promise((resolve) => {
       Taro.request({
         method: "GET",
-        url: `https://jsonplaceholder.typicode.com/photos?_start=${options.page}&_limit=${options.size}`,
+        url: `https://jsonplaceholder.typicode.com/todos?_page=${options.page}&_limit=${options.size}`,
         success: resolve,
       });
     });
@@ -193,25 +207,43 @@ export default class Index extends Component {
             scrollY
             refresherEnabled
             api={this.apiService}
+            size={20}
             dataGetter={(e) => e.data}
             hasMore={(e) => {
-              console.log("e", e);
-              return e.data.length <= 10;
+              console.log("e", e, e.data.length <= 10);
+              return e.data.length === 20;
             }}
             onChange={(e) => {
               const { items } = e.target.value;
               this.setState({ dataSource: items });
             }}
-          >
-            {dataSource.map((item: any) => {
-              return (
-                <View>
-                  <View>Hello {item.title}</View>
-                  <Image src={item.url} style={{ width: 120, height: 120 }} />
-                </View>
-              );
-            })}
-          </TaroDataList>
+            template={(action, args) => {
+              if (action === "ITEM") {
+                const { item, index } = args;
+                return (
+                  <View className="template-item">
+                    <Text>{item.id}</Text>
+                    <Checkbox checked={item.complete} />
+                    <Text>Hello {item.title}</Text>
+                  </View>
+                );
+              }
+
+              if (action === "LOAD_MORE") {
+                return <View className="template-init">上滑加载更多...</View>;
+              }
+
+              if (action === "INIT") {
+                return <View className="template-init">数据加载中...</View>;
+              }
+
+              if (action === "NO_MORE") {
+                return (
+                  <View className="template-no-more">没有可以加载的数据啦</View>
+                );
+              }
+            }}
+          />
         </StyledList>
       </View>
     );

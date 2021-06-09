@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView } from '@tarojs/components';
+import { ScrollView, View } from '@tarojs/components';
 import noop from '@jswork/noop';
+import ReactList from '@jswork/react-list';
+import RCM from '@jswork/react-condition-manager';
 
+type TemplateAction = 'INIT' | 'LOAD_MORE' | 'NO_MORE' | 'ITEM';
 type ScrollViewProps = React.ComponentProps<typeof ScrollView>;
 type Props = ScrollViewProps & {
   api: (args: any) => Promise<any>;
@@ -9,6 +12,7 @@ type Props = ScrollViewProps & {
   onChange?: (args: any) => any;
   dataGetter?: (response: any) => any;
   hasMore?: (response: any) => boolean;
+  template?: (action: TemplateAction, opts?: any) => any;
   size?: number;
   pagination?: {
     start?: number;
@@ -33,6 +37,7 @@ export default class extends Component<Props, State> {
     options: () => null,
     hasMore: () => true,
     dataGetter: noop,
+    template: noop,
     size: 10,
     pagination: {
       start: 1,
@@ -79,17 +84,19 @@ export default class extends Component<Props, State> {
   };
 
   handleScrollToLower = () => {
-    this.more().then((res) => {
-      this.handleChange(res);
-    });
+    const { more } = this.state;
+    more &&
+      this.more().then((res) => {
+        this.handleChange(res);
+      });
   };
 
   init = () => {
     const { size, pagination, dataGetter } = this.props;
     return new Promise((resolve) => {
       const current = pagination?.start as number;
-      this.setState({ current }, () => {
-        this.load(this.state.current, size).then((res) => {
+      this.setState({ more: true, current: current + 1 }, () => {
+        this.load(current, size).then((res) => {
           const dataSource = dataGetter!(res);
           this.setState({ dataSource }, () => {
             resolve(dataSource);
@@ -124,13 +131,28 @@ export default class extends Component<Props, State> {
   };
 
   public render() {
+    const { dataSource, more } = this.state;
+    const { template } = this.props;
     return (
       <ScrollView
         refresherTriggered={this.state.loading}
         onRefresherRefresh={this.handleRefresherRefresh}
         onScrollToLower={this.handleScrollToLower}
-        {...this.props}
-      />
+        {...this.props}>
+        <RCM
+          virtual
+          items={[
+            dataSource.length > 0,
+            !more,
+            dataSource.length && more,
+            dataSource.length === 0
+          ]}>
+          <ReactList virtual items={dataSource} template={(opt) => template!('ITEM', opt)} />
+          {template!('NO_MORE')}
+          {template!('LOAD_MORE')}
+          {template!('INIT')}
+        </RCM>
+      </ScrollView>
     );
   }
 }
