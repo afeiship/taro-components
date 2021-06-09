@@ -3,11 +3,13 @@ import { ScrollView } from '@tarojs/components';
 import noop from '@jswork/noop';
 import ReactList from '@jswork/react-list';
 import RCM from '@jswork/react-condition-manager';
+import { Current } from '@tarojs/taro';
 
 type TemplateAction = 'INIT' | 'LOAD_MORE' | 'NO_MORE' | 'ITEM';
 type ScrollViewProps = React.ComponentProps<typeof ScrollView>;
 type Props = ScrollViewProps & {
   api: (args: any) => Promise<any>;
+  height?: number | string;
   options?: (args: any) => any;
   onChange?: (args: any) => any;
   dataGetter?: (response: any) => any;
@@ -34,7 +36,7 @@ export default class extends Component<Props, State> {
   static defaultProps = {
     api: Promise.resolve(),
     onChange: noop,
-    options: () => null,
+    options: (args) => args,
     hasMore: () => true,
     dataGetter: noop,
     template: noop,
@@ -123,22 +125,25 @@ export default class extends Component<Props, State> {
 
   load = (inPage, inSize) => {
     const { api, pagination, options } = this.props;
+    const params = Current.router?.params;
+    const opts = typeof options === 'function' ? options(params) : options;
     return api({
       [pagination?.page!]: inPage,
       [pagination?.size!]: inSize,
-      ...options
+      ...opts
     });
   };
 
   public render() {
     const { dataSource, more } = this.state;
-    const { template } = this.props;
+    const { height, template, ...props } = this.props;
     return (
       <ScrollView
         refresherTriggered={this.state.loading}
         onRefresherRefresh={this.handleRefresherRefresh}
         onScrollToLower={this.handleScrollToLower}
-        {...this.props}>
+        style={{ height }}
+        {...props}>
         <RCM
           virtual
           items={[
