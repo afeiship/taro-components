@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View } from '@tarojs/components';
+import { ScrollView } from '@tarojs/components';
 import noop from '@jswork/noop';
 import ReactList from '@jswork/react-list';
 import RCM from '@jswork/react-condition-manager';
