@@ -35,6 +35,7 @@ interface State {
 export default class extends Component<Props, State> {
   static defaultProps = {
     api: Promise.resolve(),
+    height: '100%',
     onChange: noop,
     options: (args) => args,
     hasMore: () => true,
