@@ -4,7 +4,7 @@
   "description": "Taro components demo site.",
   "appid": "wx58f139f3d54b24ce",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "enhance": false,
     "postcss": false,

@@ -1,20 +1,34 @@
 import { Component } from "react";
-import { View, Canvas, Text } from "@tarojs/components";
+import { View, Image, Text } from "@tarojs/components";
 import "./index.scss";
-import Taro, { login } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 import TaroSelect from "@jswork/taro-select";
-import TaroEcharts from "@jswork/taro-echarts";
-import * as echarts from "@jswork/echarts-tiny/lib/echarts.min";
+// import TaroEcharts from "@jswork/taro-echarts";
+// import * as echarts from "@jswork/echarts-tiny/lib/echarts.min";
 import { css } from "@linaria/core";
 import { styled } from "linaria/react";
 import StyledBox from "@jswork/styled-box";
-import { AtButton, AtFab, AtIcon, AtAvatar } from "taro-ui";
+import { AtButton, AtFab, AtIcon } from "taro-ui";
+// import
+
+// http://jsonplaceholder.typicode.com/photos?_start=2&_limit=5
+
+import TaroDataList from "@jswork/taro-data-list";
 
 Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
+
+const StyledList = styled(View)`
+  scroll-view {
+    border: 1px solid red;
+    box-sizing: border-box;
+    height: 600px;
+  }
+`;
 
 export default class Index extends Component {
   state = {
     ready: false,
+    dataSource: [],
     items: [
       { name: "fei", id: 1 },
       { name: "zheng", id: 2 },
@@ -116,6 +130,16 @@ export default class Index extends Component {
     });
   };
 
+  apiService = (options) => {
+    return new Promise((resolve) => {
+      Taro.request({
+        method: "GET",
+        url: `https://jsonplaceholder.typicode.com/photos?_start=${options.page}&_limit=${options.size}`,
+        success: resolve,
+      });
+    });
+  };
+
   render() {
     // const header = css`
     //   font-size: 24px;
@@ -125,9 +149,12 @@ export default class Index extends Component {
 
     // console.log(header);
 
+    const { dataSource } = this.state;
     return (
       <View className="index">
-        <view data-key="hello" data-value="world">1Hello wrold2</view>
+        <view data-key="hello" data-value="world">
+          1Hello wrold2
+        </view>
         {/* <StyledBox p={10} debug auto wp={8}>
           StyleBox comming.
         </StyledBox> */}
@@ -161,10 +188,31 @@ export default class Index extends Component {
           }}
         />
 
-        <AtAvatar image="https://jdc.jd.com/img/200"></AtAvatar>
-        <AtAvatar text="凹凸实验室"></AtAvatar>
-        <AtAvatar circle image="https://jdc.jd.com/img/200"></AtAvatar>
-        <AtAvatar circle text="凹凸实验室"></AtAvatar>
+        <StyledList>
+          <TaroDataList
+            scrollY
+            refresherEnabled
+            api={this.apiService}
+            dataGetter={(e) => e.data}
+            hasMore={(e) => {
+              console.log("e", e);
+              return e.data.length <= 10;
+            }}
+            onChange={(e) => {
+              const { items } = e.target.value;
+              this.setState({ dataSource: items });
+            }}
+          >
+            {dataSource.map((item: any) => {
+              return (
+                <View>
+                  <View>Hello {item.title}</View>
+                  <Image src={item.url} style={{ width: 120, height: 120 }} />
+                </View>
+              );
+            })}
+          </TaroDataList>
+        </StyledList>
       </View>
     );
   }

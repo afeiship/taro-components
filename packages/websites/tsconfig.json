@@ -18,7 +18,6 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "resolveJsonModule": true,
-    "importHelpers": true,
     "typeRoots": [
       "node_modules/@types",
       "global.d.ts"
