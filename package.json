@@ -13,7 +13,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "start": "cd ./packages/websites && yarn start",
-    "build": "lerna run build",
+    "build": "lerna run build --no-private",
     "publish": "npm run build && lerna publish --no-private"
   }
 }
