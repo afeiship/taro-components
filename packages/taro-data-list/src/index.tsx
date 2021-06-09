@@ -45,10 +45,11 @@ export default class extends Component<Props, State> {
 
   constructor(inProps: Props) {
     super(inProps);
+    const current = inProps?.pagination?.start as number;
     this.state = {
       loading: false,
       more: true,
-      current: inProps.pagination.start,
+      current,
       dataSource: []
     };
   }
@@ -59,7 +60,7 @@ export default class extends Component<Props, State> {
 
   handleChange = (inDataSource) => {
     const { onChange } = this.props;
-    onChange({
+    onChange!({
       target: {
         value: {
           items: inDataSource,
@@ -86,9 +87,10 @@ export default class extends Component<Props, State> {
   init = () => {
     const { size, pagination, dataGetter } = this.props;
     return new Promise((resolve) => {
-      this.setState({ current: pagination.start }, () => {
+      const current = pagination?.start as number;
+      this.setState({ current }, () => {
         this.load(this.state.current, size).then((res) => {
-          const dataSource = dataGetter(res);
+          const dataSource = dataGetter!(res);
           this.setState({ dataSource }, () => {
             resolve(dataSource);
           });
@@ -102,8 +104,8 @@ export default class extends Component<Props, State> {
     let { current, dataSource } = this.state;
     return new Promise((resolve) => {
       this.load(current, size).then((res) => {
-        const more = hasMore(res);
-        dataSource = dataSource.concat(dataGetter(res));
+        const more = hasMore!(res);
+        dataSource = dataSource.concat(dataGetter!(res));
         more && current++;
         this.setState({ current, more, dataSource }, () => {
           resolve(dataSource);
@@ -115,8 +117,8 @@ export default class extends Component<Props, State> {
   load = (inPage, inSize) => {
     const { api, pagination, options } = this.props;
     return api({
-      [pagination.page]: inPage,
-      [pagination.size]: inSize,
+      [pagination?.page!]: inPage,
+      [pagination?.size!]: inSize,
       ...options
     });
   };
