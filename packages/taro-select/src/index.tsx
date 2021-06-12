@@ -61,6 +61,15 @@ export default class extends Component<Props, State> {
     this.state = { index };
   }
 
+  shouldComponentUpdate(inProps) {
+    const { value, valueKey } = inProps;
+    const index = inProps.items.findIndex((item) => item[valueKey] === value);
+    if (index !== this.state.index) {
+      this.setState({ index });
+    }
+    return true;
+  }
+
   private handleChange = (inEvent: any) => {
     const { onChange, valueKey } = this.props;
     const { value } = inEvent.detail;
