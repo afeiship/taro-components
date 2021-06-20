@@ -196,6 +196,7 @@ export default class Index extends Component {
           labelKey="name"
           valueKey="id"
           value={2}
+          noecho
           items={this.state.items}
           onChange={(e) => {
             console.log("e:", e.target.value);

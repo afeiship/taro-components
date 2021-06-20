@@ -15,6 +15,7 @@ interface Props {
   placeholder?: string;
   current?: string;
   value?: any;
+  noecho?: boolean;
   onChange: (e: EventTarget) => void;
 }
 
@@ -33,6 +34,7 @@ export default class extends Component<Props, State> {
     labelKey: 'label',
     placeholder: '请选择',
     current: '当前选择',
+    noecho: false,
     items: [],
     onChange: noop
   };
@@ -44,9 +46,10 @@ export default class extends Component<Props, State> {
   }
 
   get children() {
-    const { placeholder, current, labelKey } = this.props;
+    const { placeholder, current, noecho, labelKey } = this.props;
     const { index } = this.state;
-    if (index === -1) return <View className="is-placeholder">{placeholder}</View>;
+    if (index === -1 || noecho) return <View className="is-placeholder">{placeholder}</View>;
+    if (noecho) return null;
     return (
       <View className="is-selected">
         {current} {this.item[labelKey]}
