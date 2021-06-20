@@ -195,7 +195,6 @@ export default class Index extends Component {
         <TaroSelect
           labelKey="name"
           valueKey="id"
-          value={2}
           noecho
           items={this.state.items}
           onChange={(e) => {

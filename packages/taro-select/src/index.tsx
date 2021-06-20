@@ -77,7 +77,7 @@ export default class extends Component<Props, State> {
     const { onChange, valueKey } = this.props;
     const { value } = inEvent.detail;
     this.setState({ index: parseInt(value) }, () => {
-      onChange({ target: { value: this.item[valueKey] } });
+      onChange({ target: { value: this.item ? this.item[valueKey] : null } });
     });
   };
 
