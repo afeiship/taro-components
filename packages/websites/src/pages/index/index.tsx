@@ -14,6 +14,9 @@ import { AtButton, AtFab, AtIcon } from "taro-ui";
 // http://jsonplaceholder.typicode.com/photos?_start=2&_limit=5
 
 import TaroDataList from "@jswork/taro-data-list";
+import TaroSelectGroup from "@jswork/taro-select-group";
+import Picks from "./picks";
+import Pickers from "./pickers";
 
 Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
@@ -39,6 +42,17 @@ const StyledList = styled(View)`
   }
 `;
 
+const TaroGroupContainter = styled(View)`
+  padding: 10px;
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  border: 1px solid #ccc;
+  .is-placeholder {
+    color: #999;
+  }
+`;
+
 export default class Index extends Component {
   state = {
     ready: false,
@@ -47,6 +61,21 @@ export default class Index extends Component {
       { name: "fei", id: 1 },
       { name: "zheng", id: 2 },
       { name: "afeiship", id: 3 },
+    ],
+    groupValue: [-1, -1],
+    groupItems: [
+      [
+        { value: "xx", label: "小学" },
+        { value: "cz", label: "初中" },
+        { value: "gz", label: "高中" },
+      ],
+      [
+        { value: "01", label: "01班" },
+        { value: "02", label: "02班" },
+        { value: "03", label: "03班" },
+        { value: "04", label: "04班" },
+        { value: "05", label: "05班" },
+      ],
     ],
   };
 
@@ -163,12 +192,19 @@ export default class Index extends Component {
 
     // console.log(header);
 
-    const { dataSource } = this.state;
+    const { dataSource, groupValue, groupItems } = this.state;
     return (
       <View className="index">
-        <view data-key="hello" data-value="world">
-          1Hello wrold2
-        </view>
+        {/* <Picks /> */}
+        <TaroGroupContainter>
+          <TaroSelectGroup
+            items={groupItems}
+            value={groupValue}
+            onChange={(e) => {
+              this.setState({ groupValue: e.target.value });
+            }}
+          />
+        </TaroGroupContainter>
         {/* <StyledBox p={10} debug auto wp={8}>
           StyleBox comming.
         </StyledBox> */}
