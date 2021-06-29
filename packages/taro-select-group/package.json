@@ -1,6 +1,6 @@
 {
   "name": "@jswork/taro-select-group",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Taro select gropu.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -23,8 +23,8 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@jswork/noop": "^1.0.0",
-    "@jswork/next-tmpl": "^1.0.1"
+    "@jswork/next-tmpl": "^1.0.1",
+    "@jswork/noop": "^1.0.0"
   },
   "publishConfig": {
     "access": "public",
