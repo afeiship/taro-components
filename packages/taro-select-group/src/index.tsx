@@ -16,7 +16,7 @@ interface Props {
   placeholder?: string;
   current?: string;
   noecho?: boolean;
-  valueTemplate?: (values: any[]) => string;
+  labelTemplate?: (values: any[]) => string;
   onChange: (e: EventTarget) => void;
 }
 
@@ -35,14 +35,14 @@ export default class extends Component<Props, State> {
     labelKey: 'label',
     placeholder: '请选择',
     current: '当前选择',
-    valueTemplate: (values) => values.join(''),
+    labelTemplate: (values) => values.join(''),
     items: [],
     value: [],
     onChange: noop
   };
 
   get children() {
-    const { placeholder, current, items, labelKey, valueTemplate } = this.props;
+    const { placeholder, current, items, labelKey, labelTemplate } = this.props;
     const { indexes } = this.state;
     const hasTruthy = indexes.some((index) => index !== -1);
     const values = indexes.map((index, idx) => {
@@ -54,7 +54,7 @@ export default class extends Component<Props, State> {
     return (
       <View className="is-selected">
         {current}
-        {valueTemplate!(values)}
+        {labelTemplate!(values)}
       </View>
     );
   }
