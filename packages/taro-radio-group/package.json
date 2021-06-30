@@ -1,7 +1,7 @@
 {
-  "name": "@jswork/taro-checkbox-group",
+  "name": "@jswork/taro-radio-group",
   "version": "1.0.0",
-  "description": "Taro checkbox group.",
+  "description": "Taro radio group.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {

@@ -54,7 +54,6 @@ export default class extends Component<Props, any> {
 
   public render() {
     const { items, template, onChange, ...props } = this.props;
-    console.log('value:', props.value);
 
     return (
       <CheckboxGroup onChange={this.handleChange} {...props}>

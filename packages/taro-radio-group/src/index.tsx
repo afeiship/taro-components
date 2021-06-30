@@ -12,7 +12,7 @@ interface EventTarget {
 interface Props {
   items: any[];
   template?: any;
-  value?: any[];
+  value?: any;
   onChange?: (e: EventTarget) => void;
 }
 
@@ -33,7 +33,6 @@ const DEFAULT_TEMPLATE = ({ item }, cb) => {
 export default class extends Component<Props, any> {
   static defaultProps = {
     items: [],
-    value: [],
     template: DEFAULT_TEMPLATE,
     onChange: noop
   };

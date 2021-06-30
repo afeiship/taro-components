@@ -16,6 +16,7 @@ import { AtButton, AtFab, AtIcon } from "taro-ui";
 import TaroDataList from "@jswork/taro-data-list";
 import TaroSelectGroup from "@jswork/taro-select-group";
 import CheckboxView from "@jswork/taro-checkbox-group";
+import RadioGroupView from "@jswork/taro-radio-group";
 
 Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
@@ -75,6 +76,11 @@ export default class Index extends Component {
         { value: "04", label: "04班" },
         { value: "05", label: "05班" },
       ],
+    ],
+    radioItems: [
+      { value: "xx", label: "小学" },
+      { value: "cz", label: "初中" },
+      { value: "gz", label: "高中" },
     ],
     checkItems: [
       { value: "01", label: "01班" },
@@ -206,9 +212,17 @@ export default class Index extends Component {
 
     // console.log(header);
 
-    const { dataSource, groupValue, checkItems, groupItems } = this.state;
+    const { dataSource, groupValue, radioItems, checkItems, groupItems } =
+      this.state;
     return (
       <View className="index">
+        <RadioGroupView
+          value="cz"
+          items={radioItems}
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+        />
         <CheckboxView
           items={checkItems}
           value={["01", "02"]}
