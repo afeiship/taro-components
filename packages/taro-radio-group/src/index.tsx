@@ -17,9 +17,9 @@ interface Props {
 }
 
 /**
- * Taro.Radio
- * https://developers.weixin.qq.com/miniprogram/dev/component/Radio.html
- * https://docs.taro.zone/docs/components/forms/Radio
+ * Taro.RadioGroup
+ * https://developers.weixin.qq.com/miniprogram/dev/component/radio-group.html
+ * https://docs.taro.zone/docs/components/forms/radio
  */
 
 const DEFAULT_TEMPLATE = ({ item }, cb) => {
