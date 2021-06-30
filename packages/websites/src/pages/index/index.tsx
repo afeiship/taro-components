@@ -15,8 +15,7 @@ import { AtButton, AtFab, AtIcon } from "taro-ui";
 
 import TaroDataList from "@jswork/taro-data-list";
 import TaroSelectGroup from "@jswork/taro-select-group";
-import Picks from "./picks";
-import Pickers from "./pickers";
+import CheckboxView from "@jswork/taro-checkbox-group";
 
 Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
@@ -76,6 +75,13 @@ export default class Index extends Component {
         { value: "04", label: "04班" },
         { value: "05", label: "05班" },
       ],
+    ],
+    checkItems: [
+      { value: "01", label: "01班" },
+      { value: "02", label: "02班" },
+      { value: "03", label: "03班" },
+      { value: "04", label: "04班" },
+      { value: "05", label: "05班" },
     ],
   };
 
@@ -183,6 +189,14 @@ export default class Index extends Component {
     });
   };
 
+  checkTemplate = ({ item }) => {
+    return (
+      <View style={{ border: "1px solid red" }}>
+        <Checkbox value={item.value}>{item.label}</Checkbox>
+      </View>
+    );
+  };
+
   render() {
     // const header = css`
     //   font-size: 24px;
@@ -192,9 +206,23 @@ export default class Index extends Component {
 
     // console.log(header);
 
-    const { dataSource, groupValue, groupItems } = this.state;
+    const { dataSource, groupValue, checkItems, groupItems } = this.state;
     return (
       <View className="index">
+        <CheckboxView
+          items={checkItems}
+          value={["01", "02"]}
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+        />
+        <CheckboxView
+          items={checkItems}
+          template={this.checkTemplate}
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+        />
         {/* <Picks /> */}
         <TaroGroupContainter>
           <TaroSelectGroup
@@ -215,18 +243,6 @@ export default class Index extends Component {
           onInit={this.handleInit}
           canvasId="myCanvas"
         /> */}
-        <AtButton type="primary" size="normal">
-          按钮文案
-        </AtButton>
-
-        <AtButton type="secondary" size="normal">
-          按钮文案
-        </AtButton>
-        <AtIcon value="clock" size="30" color="#F00"></AtIcon>
-
-        <AtFab>
-          <Text className="at-fab__icon at-icon at-icon-menu"></Text>
-        </AtFab>
 
         <TaroSelect
           labelKey="name"

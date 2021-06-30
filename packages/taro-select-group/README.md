@@ -1,4 +1,4 @@
-# taro-select-gropu
+# taro-select-group
 > Taro select group.
 
 ## installation
