@@ -5,7 +5,7 @@ import ReactList from '@jswork/react-list';
 import RCM from '@jswork/react-condition-manager';
 import { Current } from '@tarojs/taro';
 
-type TemplateAction = 'INIT' | 'LOAD_MORE' | 'NO_MORE' | 'ITEM';
+type TemplateAction = 'INIT' | 'LOAD_MORE' | 'NO_MORE' | 'ITEM' | 'EMPTY';
 type ScrollViewProps = React.ComponentProps<typeof ScrollView>;
 type Props = ScrollViewProps & {
   api: (args: any) => Promise<any>;
@@ -29,6 +29,7 @@ interface State {
   loading: boolean;
   current: number;
   more: boolean;
+  timestamp: number;
   dataSource: any[];
 }
 
@@ -57,6 +58,7 @@ export default class extends Component<Props, State> {
     this.state = {
       loading: false,
       more: true,
+      timestamp: 0,
       current,
       dataSource: []
     };
@@ -101,7 +103,7 @@ export default class extends Component<Props, State> {
       this.setState({ more: true, current: current + 1 }, () => {
         this.load(current, size).then((res) => {
           const dataSource = dataGetter!(res);
-          this.setState({ dataSource }, () => {
+          this.setState({ dataSource, timestamp: Date.now() }, () => {
             resolve(dataSource);
           });
         });
@@ -136,7 +138,7 @@ export default class extends Component<Props, State> {
   };
 
   public render() {
-    const { dataSource, more } = this.state;
+    const { dataSource, more, timestamp } = this.state;
     const { height, template, ...props } = this.props;
     return (
       <ScrollView
@@ -151,12 +153,14 @@ export default class extends Component<Props, State> {
             dataSource.length > 0,
             !more,
             dataSource.length && more,
-            dataSource.length === 0
+            dataSource.length === 0 && timestamp === 0,
+            dataSource.length === 0 && timestamp > 0
           ]}>
           <ReactList virtual items={dataSource} template={(opt) => template!('ITEM', opt)} />
           {template!('NO_MORE')}
           {template!('LOAD_MORE')}
           {template!('INIT')}
+          {template!('EMPTY')}
         </RCM>
       </ScrollView>
     );
