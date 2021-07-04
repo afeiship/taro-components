@@ -44,9 +44,9 @@ export default class extends Component<Props, State> {
   };
 
   get children() {
-    const { placeholder, current, items, labelKey, labelTemplate } = this.props;
+    const { placeholder, value, current, items, labelKey, labelTemplate } = this.props;
     const { indexes } = this.state;
-    const hasTruthy = indexes.some((index) => index !== -1);
+    const hasTruthy = value!.filter(Boolean).length > 0;
     const values = indexes.map((index, idx) => {
       const item = items[idx][index];
       return item ? item[labelKey] : '';
