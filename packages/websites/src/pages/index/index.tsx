@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { View, Image, Text, Checkbox } from "@tarojs/components";
+import { View, Image, Picker, Text, Checkbox } from "@tarojs/components";
 import "./index.scss";
 import Taro from "@tarojs/taro";
 import TaroSelect from "@jswork/taro-select";
@@ -214,8 +214,41 @@ export default class Index extends Component {
 
     const { dataSource, groupValue, radioItems, checkItems, groupItems } =
       this.state;
+    const value = ["广东省", "广州市", "海珠区"];
+    const customItem = "全部";
+    const regions = [
+      [
+        { label: "初一", value: 7 },
+        { label: "初二", value: 8 },
+        { label: "初三", value: 9 },
+      ],
+      [
+        { value: 1, label: "初三1班" },
+        { value: 2, label: "初三2班" },
+        { value: 3, label: "初三3班" },
+        { value: 4, label: "初三4班" },
+        { value: 5, label: "初三5班" },
+        { value: 6, label: "初三6班" },
+        { value: 7, label: "初三7班" },
+        { value: 8, label: "初三8班" },
+        { value: 9, label: "初三9班" },
+        { value: 10, label: "初三10班" },
+        { value: 11, label: "初三11班" },
+        { value: 12, label: "初三12班" },
+        { value: 13, label: "初三14班" },
+      ],
+    ];
     return (
       <View className="index">
+        <Picker
+          mode="region"
+          value={value}
+          onChange={(e) => {
+            console.log(e.detail.value);
+          }}
+        >
+          省市区
+        </Picker>
         <RadioGroupView
           value="cz"
           items={radioItems}
@@ -242,6 +275,9 @@ export default class Index extends Component {
           <TaroSelectGroup
             items={groupItems}
             value={groupValue}
+            onColumnChange={(e) => {
+              console.log("column change", e.target.value);
+            }}
             onChange={(e) => {
               this.setState({ groupValue: e.target.value });
             }}

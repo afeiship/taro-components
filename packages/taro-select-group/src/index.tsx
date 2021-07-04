@@ -18,6 +18,7 @@ interface Props {
   noecho?: boolean;
   labelTemplate?: (values: any[]) => string;
   onChange: (e: EventTarget) => void;
+  onColumnChange: (e: EventTarget) => void;
 }
 
 interface State {
@@ -38,7 +39,8 @@ export default class extends Component<Props, State> {
     labelTemplate: (values) => values.join(''),
     items: [],
     value: [],
-    onChange: noop
+    onChange: noop,
+    onColumnChange: noop
   };
 
   get children() {
@@ -82,6 +84,16 @@ export default class extends Component<Props, State> {
     onChange({ target: { value } });
   };
 
+  private handleColumnChange = (inEvent: any) => {
+    const { column, value } = inEvent.detail;
+    const { items, valueKey, onColumnChange } = this.props;
+    const _value = items[column][value][valueKey];
+    const targetValue = { column, index: value, value: _value };
+    onColumnChange({
+      target: { value: targetValue }
+    });
+  };
+
   private toIndexes(inValue) {
     const { items, valueKey } = this.props;
     return items.map((list, idx) => {
@@ -98,13 +110,14 @@ export default class extends Component<Props, State> {
   }
 
   public render() {
-    const { items, placeholder, value, onChange, labelKey, valueKey, ...props } = this.props;
+    const { items, placeholder, value, onChange, onColumnChange, labelKey, valueKey, ...props } = this.props;
     const { indexes } = this.state;
 
     return (
       <Picker
         mode="multiSelector"
         range={items}
+        onColumnChange={this.handleColumnChange}
         onChange={this.handleChange}
         rangeKey={labelKey}
         value={indexes}
