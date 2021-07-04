@@ -1,6 +1,6 @@
 {
   "name": "@jswork/taro-select-group",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Taro select gropu.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
