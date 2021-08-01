@@ -15,6 +15,7 @@ type Props = ScrollViewProps & {
   dataGetter?: (response: any) => any;
   hasMore?: (response: any) => boolean;
   template?: (action: TemplateAction, opts?: any) => any;
+  min?: number;
   size?: number;
   pagination?: {
     start?: number;
@@ -42,6 +43,7 @@ export default class extends Component<Props, State> {
     hasMore: () => true,
     dataGetter: noop,
     template: noop,
+    min: 5,
     size: 10,
     pagination: {
       start: 1,
@@ -139,7 +141,7 @@ export default class extends Component<Props, State> {
 
   public render() {
     const { dataSource, more, timestamp } = this.state;
-    const { height, template, ...props } = this.props;
+    const { height, min, template, ...props } = this.props;
     return (
       <ScrollView
         refresherTriggered={this.state.loading}
@@ -150,13 +152,15 @@ export default class extends Component<Props, State> {
         <RCM
           virtual
           items={[
-            dataSource.length > 0,
+            dataSource.length > 0 && dataSource.length <= min!,
+            dataSource.length > min!,
             !more,
             dataSource.length && more,
             dataSource.length === 0 && timestamp === 0,
             dataSource.length === 0 && timestamp > 0
           ]}>
           <ReactList virtual items={dataSource} template={(opt) => template!('ITEM', opt)} />
+          <React.Fragment></React.Fragment>
           {template!('NO_MORE')}
           {template!('LOAD_MORE')}
           {template!('INIT')}
