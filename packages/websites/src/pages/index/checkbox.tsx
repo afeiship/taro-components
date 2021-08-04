@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { Checkbox, CheckboxGroup, View } from "@tarojs/components";
 
 export class Default extends Component {
+  componentDidMount() {
+    console.log('init');
+  }
+
   render() {
     return (
       <View>

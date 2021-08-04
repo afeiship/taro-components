@@ -7,7 +7,7 @@ import TaroSelect from "@jswork/taro-select";
 // import * as echarts from "@jswork/echarts-tiny/lib/echarts.min";
 import { css } from "@linaria/core";
 import { styled } from "linaria/react";
-import StyledBox from "@jswork/styled-box";
+// import StyledBox from "@jswork/styled-box";
 import { AtButton, AtFab, AtIcon } from "taro-ui";
 // import
 
@@ -15,43 +15,13 @@ import { AtButton, AtFab, AtIcon } from "taro-ui";
 
 import TaroDataList from "@jswork/taro-data-list";
 import TaroSelectGroup from "@jswork/taro-select-group";
-import CheckboxView from "@jswork/taro-checkbox-group";
+// import CheckboxView from "@jswork/taro-checkbox-group";
 import RadioGroupView from "@jswork/taro-radio-group";
+import CheckBoxView from './checkbox';
+// Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
 
-Object.assign(StyledBox.defaultProps, { engine: { styled, css } });
+const Container = styled(View)``;
 
-const StyledList = styled(View)`
-  scroll-view {
-    padding: 20px;
-    border: 1px solid red;
-    box-sizing: border-box;
-    height: 600px;
-  }
-  .template-item {
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 24px;
-  }
-
-  .template-init,
-  .template-no-more {
-    text-align: center;
-    padding: 20px;
-    color: #999;
-  }
-`;
-
-const TaroGroupContainter = styled(View)`
-  padding: 10px;
-  margin: 20px auto;
-  width: 80%;
-  text-align: center;
-  border: 1px solid #ccc;
-  .is-placeholder {
-    color: #999;
-  }
-`;
 
 export default class Index extends Component {
   state = {
@@ -240,6 +210,7 @@ export default class Index extends Component {
     ];
     return (
       <View className="index">
+        <Container>Container</Container>
         <Picker
           mode="region"
           value={value}
@@ -256,44 +227,7 @@ export default class Index extends Component {
             console.log(e.target.value);
           }}
         />
-        <CheckboxView
-          items={checkItems}
-          value={["01", "02"]}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
-        <CheckboxView
-          items={checkItems}
-          template={this.checkTemplate}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
-        {/* <Picks /> */}
-        <TaroGroupContainter>
-          <TaroSelectGroup
-            items={groupItems}
-            value={groupValue}
-            onColumnChange={(e) => {
-              console.log("column change", e.target.value);
-            }}
-            onChange={(e) => {
-              this.setState({ groupValue: e.target.value });
-            }}
-          />
-        </TaroGroupContainter>
-        {/* <StyledBox p={10} debug auto wp={8}>
-          StyleBox comming.
-        </StyledBox> */}
-        {/* <TaroEcharts
-          echarts={echarts}
-          width={"100%"}
-          height={300}
-          onInit={this.handleInit}
-          canvasId="myCanvas"
-        /> */}
-
+        <CheckBoxView />
         <TaroSelect
           labelKey="name"
           valueKey="id"
@@ -303,50 +237,6 @@ export default class Index extends Component {
             console.log("e:", e.target.value);
           }}
         />
-
-        <StyledList>
-          <TaroDataList
-            scrollY
-            refresherEnabled
-            api={this.apiService}
-            size={20}
-            dataGetter={(e) => e.data}
-            hasMore={(e) => {
-              console.log("e", e, e.data.length <= 10);
-              return e.data.length === 20;
-            }}
-            onChange={(e) => {
-              const { items } = e.target.value;
-              this.setState({ dataSource: items });
-            }}
-            template={(action, args) => {
-              if (action === "ITEM") {
-                const { item, index } = args;
-                return (
-                  <View className="template-item">
-                    <Text>{item.id}</Text>
-                    <Checkbox checked={item.complete} />
-                    <Text>Hello {item.title}</Text>
-                  </View>
-                );
-              }
-
-              if (action === "LOAD_MORE") {
-                return <View className="template-init">上滑加载更多...</View>;
-              }
-
-              if (action === "INIT") {
-                return <View className="template-init">数据加载中...</View>;
-              }
-
-              if (action === "NO_MORE") {
-                return (
-                  <View className="template-no-more">没有可以加载的数据啦</View>
-                );
-              }
-            }}
-          />
-        </StyledList>
       </View>
     );
   }
