@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { View, Picker } from '@tarojs/components';
 import noop from '@jswork/noop';
 
+type PickerProps = typeof Picker;
+
 interface EventTarget {
   target: {
     value: any;
   };
 }
 
-interface Props {
+type Props = PickerProps & {
   items: any[];
   value?: any[];
   valueKey: string;
