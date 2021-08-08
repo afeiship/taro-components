@@ -4,10 +4,10 @@ import noop from '@jswork/noop';
 import ReactList from '@jswork/react-list';
 import RCM from '@jswork/react-condition-manager';
 import { Current } from '@tarojs/taro';
+import { StandardProps } from '@tarojs/components';
 
 type TemplateAction = 'INIT' | 'LOAD_MORE' | 'NO_MORE' | 'ITEM' | 'EMPTY';
-type ScrollViewProps = React.ComponentProps<typeof ScrollView>;
-type Props = ScrollViewProps & {
+type Props = StandardProps & {
   api: (args: any) => Promise<any>;
   height?: number | string;
   options?: (args: any) => any;

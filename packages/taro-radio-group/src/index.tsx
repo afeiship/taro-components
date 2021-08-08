@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { RadioGroup, Radio } from '@tarojs/components';
 import noop from '@jswork/noop';
 import ReactList from '@jswork/react-list';
-
-type RadioGroupProps = typeof RadioGroup;
+import { StandardProps } from '@tarojs/components';
 
 interface EventTarget {
   target: {
@@ -11,12 +10,12 @@ interface EventTarget {
   };
 }
 
-type Props = RadioGroupProps & {
+type Props = StandardProps & {
   items: any[];
   template?: any;
   value?: any;
   onChange?: (e: EventTarget) => void;
-}
+};
 
 /**
  * Taro.RadioGroup
