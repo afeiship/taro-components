@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Picker } from '@tarojs/components';
 import noop from '@jswork/noop';
+import { ViewProps } from '@tarojs/components/types/View';
 
 interface EventTarget {
   target: {
@@ -8,7 +9,7 @@ interface EventTarget {
   };
 }
 
-interface Props {
+type Props = ViewProps & {
   items: any[];
   valueKey: string;
   labelKey: string;
@@ -17,7 +18,7 @@ interface Props {
   value?: any;
   noecho?: boolean;
   onChange: (e: EventTarget) => void;
-}
+};
 
 interface State {
   index: number | undefined;
