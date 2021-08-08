@@ -3,13 +3,15 @@ import { RadioGroup, Radio } from '@tarojs/components';
 import noop from '@jswork/noop';
 import ReactList from '@jswork/react-list';
 
+type RadioGroupProps = typeof RadioGroup;
+
 interface EventTarget {
   target: {
     value: any;
   };
 }
 
-interface Props {
+type Props = RadioGroupProps & {
   items: any[];
   template?: any;
   value?: any;

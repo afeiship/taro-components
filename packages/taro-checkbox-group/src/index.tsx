@@ -3,13 +3,15 @@ import { CheckboxGroup, Checkbox } from '@tarojs/components';
 import noop from '@jswork/noop';
 import ReactList from '@jswork/react-list';
 
+type CheckboxProps = typeof CheckboxGroup;
+
 interface EventTarget {
   target: {
     value: any;
   };
 }
 
-interface Props {
+type Props = CheckboxProps & {
   items: any[];
   template?: any;
   value?: any[];
