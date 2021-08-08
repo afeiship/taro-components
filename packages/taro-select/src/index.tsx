@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { View, Picker } from '@tarojs/components';
+import { View, Picker, StandardProps } from '@tarojs/components';
 import noop from '@jswork/noop';
-
-type PickerProps = typeof Picker;
 
 interface EventTarget {
   target: {
@@ -10,7 +8,7 @@ interface EventTarget {
   };
 }
 
-type Props = PickerProps & {
+type Props = StandardProps & {
   items: any[];
   valueKey: string;
   labelKey: string;
